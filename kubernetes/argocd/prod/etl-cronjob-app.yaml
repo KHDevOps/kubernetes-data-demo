@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: etl-cronjob
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/KHDevOps/kubernetes-data-demo
+    targetRevision: main
+    path: kubernetes/platform/overlays/prod
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: etl-app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
