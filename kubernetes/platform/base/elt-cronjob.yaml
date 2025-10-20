@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: etl-cronjob
+spec:
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: etl-container
+            image: khdevops/etl-app:1.00
+            imagePullPolicy: Always
+          restartPolicy: OnFailure
