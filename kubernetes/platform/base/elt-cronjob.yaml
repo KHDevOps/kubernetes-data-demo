@@ -12,4 +12,18 @@ spec:
           - name: etl-container
             image: khdevops/etl-app:1.0.0
             imagePullPolicy: Always
+            env:
+            - name: DB_HOST
+              value: postgresql.postgresql.svc.cluster.local
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_NAME
+              value: postgres
+            - name: DB_USER
+              value: postgres
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql
+                  key: postgres-password
           restartPolicy: OnFailure
