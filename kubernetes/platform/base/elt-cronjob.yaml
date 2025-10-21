@@ -14,7 +14,7 @@ spec:
             imagePullPolicy: Always
             env:
             - name: DB_HOST
-              value: postgresql.postgresql.svc.cluster.local
+              value: postgresql.etl-app.svc.cluster.local
             - name: DB_PORT
               value: "5432"
             - name: DB_NAME
