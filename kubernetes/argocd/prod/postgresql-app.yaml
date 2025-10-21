@@ -11,7 +11,7 @@ spec:
     targetRevision: 18.0.17
   destination:
     server: https://kubernetes.default.svc
-    namespace: postgresql
+    namespace: etl-app
   syncPolicy:
     automated:
       prune: true

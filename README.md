@@ -41,10 +41,10 @@ kubectl apply -f kubernetes/argocd/prod/
 ### 4. Access PostgreSQL
 ```bash
 # Port forward
-kubectl port-forward --namespace postgresql svc/postgresql 5431:5432 &
+kubectl port-forward --namespace etl-app svc/postgresql 5431:5432 &
 
 # Get password and connect
-export POSTGRES_PASSWORD=$(kubectl get secret --namespace postgresql postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
+export POSTGRES_PASSWORD=$(kubectl get secret --namespace etl-app postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
 PGPASSWORD="$POSTGRES_PASSWORD" psql --host 127.0.0.1 -U postgres -d postgres -p 5431
 ```
 
