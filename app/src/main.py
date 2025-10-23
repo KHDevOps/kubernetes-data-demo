@@ -5,10 +5,8 @@ import psycopg2
 from datetime import datetime
 import sys
 
-# Configuration
 API_URL = "https://randomuser.me/api/?results=50"
 
-# PostgreSQL connection - values injected by Kubernetes
 DB_HOST = os.environ.get('DB_HOST')
 DB_PORT = os.environ.get('DB_PORT')
 DB_NAME = os.environ.get('DB_NAME')
@@ -122,7 +120,6 @@ def main():
     """Main ETL pipeline"""
     print(f"[{datetime.now()}] === Starting ETL Pipeline ===")
     
-    # Validate configuration first
     validate_config()
     
     try:

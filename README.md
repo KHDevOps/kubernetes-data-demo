@@ -2,6 +2,9 @@
 
 A GitOps demonstration project showcasing ETL workflows on Kubernetes using ArgoCD.
 
+> **Legal Notice:** This project was developed for [DataBird](https://databird.co). 
+> Copyright © 2025 DataBird. All rights reserved.
+
 ## Tech Stack
 
 - **K3d** - Lightweight Kubernetes cluster with Docker
@@ -14,9 +17,9 @@ A GitOps demonstration project showcasing ETL workflows on Kubernetes using Argo
 ## Prerequisites
 
 - Docker
-- k3d
-- kubectl
-- helm
+- K3d
+- Kubectl
+- Helm
 
 ## Quick Start
 
