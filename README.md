@@ -2,7 +2,7 @@
 
 A GitOps demonstration project showcasing ETL workflows on Kubernetes using ArgoCD.
 
-> **Legal Notice:** This project was developed for [DataBird](https://databird.co). 
+> **Legal Notice:** This project was developed for [DataBird](https://data-bird.co). 
 > Copyright © 2025 DataBird. All rights reserved.
 
 ## Tech Stack
