@@ -1,0 +1,37 @@
+name: Update Kubernetes
+
+on:
+  workflow_run:
+    workflows: ["CD"]
+    types:
+      - completed
+    branches:
+      - main
+
+jobs:
+  update-manifest:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get commit SHA
+        id: sha
+        run: echo "short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Create branch and update image
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b update-image-${{ steps.sha.outputs.short }}
+          sed -i "s|image: khdevops/etl-app:.*|image: khdevops/etl-app:${{ steps.sha.outputs.short }}|" kubernetes/platform/base/elt-cronjob.yaml
+          git add kubernetes/platform/base/elt-cronjob.yaml
+          git commit -m "chore: update image to ${{ steps.sha.outputs.short }}"
+          git push origin update-image-${{ steps.sha.outputs.short }}
+
+      - name: Create PR and auto-merge
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr create --title "Update image to ${{ steps.sha.outputs.short }}" --body "Auto-update image version after successful CD build" --base main --head update-image-${{ steps.sha.outputs.short }}
+          gh pr merge update-image-${{ steps.sha.outputs.short }} --auto --squash
