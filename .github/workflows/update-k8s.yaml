@@ -32,7 +32,7 @@ jobs:
           sed -i "s|image: khdevops/etl-app:.*|image: khdevops/etl-app:${{ steps.sha.outputs.short }}|" kubernetes/platform/base/elt-cronjob.yaml
           git add kubernetes/platform/base/elt-cronjob.yaml
           git commit -m "chore: update image to ${{ steps.sha.outputs.short }}"
-          git push origin update-image-${{ steps.sha.outputs.short }}
+          git push -f origin update-image-${{ steps.sha.outputs.short }}
 
       - name: Create PR and auto-merge
         env:
