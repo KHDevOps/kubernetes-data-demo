@@ -28,26 +28,20 @@ jobs:
         run: |
           sed -i "s|image: khdevops/etl-app:.*|image: khdevops/etl-app:${{ steps.sha.outputs.short }}|" kubernetes/platform/base/elt-cronjob.yaml
 
-      - name: Commit and push changes
-        uses: EndBug/add-and-commit@v9
-        with:
-          add: 'kubernetes/platform/base/elt-cronjob.yaml'
-          message: 'chore: update image to ${{ steps.sha.outputs.short }}'
-          new_branch: 'update-image-${{ steps.sha.outputs.short }}'
-          push: '--force origin update-image-${{ steps.sha.outputs.short }}'
-
       - name: Create Pull Request
         id: create-pr
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore: update image to ${{ steps.sha.outputs.short }}'
           branch: update-image-${{ steps.sha.outputs.short }}
+          delete-branch: true
           title: 'Update image to ${{ steps.sha.outputs.short }}'
           body: 'Auto-update image version after successful CD build'
           base: main
 
       - name: Enable auto-merge
-        if: steps.create-pr.outputs.pull-request-number != ''
+        if: steps.create-pr.outputs.pull-request-number != '' 
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
