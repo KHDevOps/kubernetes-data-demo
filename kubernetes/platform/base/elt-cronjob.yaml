@@ -10,7 +10,7 @@ spec:
         spec:
           containers:
           - name: etl-container
-            image: khdevops/etl-app:bee0629
+            image: khdevops/etl-app:5027815
             imagePullPolicy: Always
             env:
             - name: DB_HOST
