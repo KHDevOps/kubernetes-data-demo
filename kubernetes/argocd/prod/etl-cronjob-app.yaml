@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/KHDevOps/kubernetes-data-demo
+    repoURL: https://github.com/lmdevops/kubernetes-data-demo
     targetRevision: main
     path: kubernetes/platform/overlays/prod
   destination:
